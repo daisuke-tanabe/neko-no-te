@@ -1,15 +1,8 @@
 import { Command } from 'https://deno.land/x/cliffy@v0.25.4/command/mod.ts';
 import { Select, Checkbox } from 'https://deno.land/x/cliffy@v0.25.4/prompt/mod.ts';
 import { Table, Cell } from "https://deno.land/x/cliffy@v0.25.4/table/mod.ts";
+import assertIsDefined from '../lib/assertIsDefined.ts'
 import Config from '../../config.json' assert {type: 'json'};
-
-function assertIsDefined<T>(args: T): asserts args is NonNullable<T> {
-  if (args === undefined || args === null) {
-    throw new Error(
-      `Expected 'val' to be defined, but received ${args}`
-    );
-  }
-}
 
 const gitlab = new Command()
   .action(async () => {
