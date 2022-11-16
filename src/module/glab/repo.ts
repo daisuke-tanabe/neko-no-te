@@ -10,6 +10,7 @@ import { Cell } from "https://deno.land/x/cliffy@v0.25.4/table/cell.ts";
 import config from "../../../config.json" assert { type: "json" };
 
 const view = new Command()
+  .description("View Gitlab projects/repositories.")
   .action(async () => {
     const gitlabConfig = config.gitlab;
     // const today = format(new Date(), 'yyyy-MM-ddTHH:mm:ss.SSS+09:00');
@@ -118,6 +119,7 @@ const view = new Command()
   });
 
 const repo = new Command()
+  .description("Work with Gitlab repositories.")
   .command("view", view)
 
 export default repo;
