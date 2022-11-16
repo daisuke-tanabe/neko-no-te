@@ -5,22 +5,10 @@ import {
 } from "https://deno.land/x/cliffy@v0.25.4/prompt/mod.ts";
 import { Cell, Table } from "https://deno.land/x/cliffy@v0.25.4/table/mod.ts";
 import { difference } from "https://deno.land/std@0.164.0/datetime/mod.ts";
-import { Artifact, Branch, FetchRepositoryBranchesByProject } from "./types.ts";
+import { Artifact, Branch } from "./types.ts";
 import assertIsDefined from "../lib/assertIsDefined.ts";
+import nkFetch from "../lib/nkFetch.ts";
 import config from "../../config.json" assert { type: "json" };
-
-const fetchBranches: FetchRepositoryBranchesByProject<Branch[]> = (
-  { entry, token, projectId },
-) => {
-  return fetch(
-    `${entry}/projects/${projectId}/repository/branches`,
-    {
-      headers: { "Authorization": `Bearer ${token}` },
-    },
-  )
-    .then((response) => response.json())
-    .catch((error) => console.error(error));
-};
 
 const gitlab = new Command()
   .action(async () => {
@@ -54,11 +42,12 @@ const gitlab = new Command()
     const projectsPromise = checkedProjects.map(async (project) => {
       return {
         ...project,
-        branches: await fetchBranches({
-          entry: foundGitlab.entry,
-          token: foundGitlab.token,
-          projectId: project.id,
-        }),
+        branches: await nkFetch<Branch[]>(
+          `${foundGitlab.entry}/projects/${project.id}/repository/branches`,
+          {
+            headers: { "Authorization": `Bearer ${foundGitlab.token}` },
+          },
+        ),
       };
     });
 
