@@ -58,7 +58,7 @@ const gitlab = new Command()
 
     artifact.projects.forEach(({ siteName, branches }) => {
       const mappedBranches = branches.map((branch) => {
-        const { name, commit, merged, protected: guard } = branch;
+        const { name, commit, merged } = branch;
         // NOTE: 日付の実装はざっくりなのでいつか見直すかも
         const { years, weeks, days, hours, seconds } = difference(
           new Date(),
@@ -98,7 +98,6 @@ const gitlab = new Command()
           branch_name: name,
           committer_name: commit.author_name,
           merged: `${merged}`,
-          protected: `${guard}`,
           time_ago: `${timeAgo.value} ${timeAgo.key} ago`,
         };
       });
