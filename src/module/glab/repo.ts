@@ -1,17 +1,15 @@
-import { Command } from "https://deno.land/x/cliffy@v0.25.4/command/mod.ts";
-import {
-  Checkbox,
-  Select,
-} from "https://deno.land/x/cliffy@v0.25.4/prompt/mod.ts";
-import { Cell, Table } from "https://deno.land/x/cliffy@v0.25.4/table/mod.ts";
-import { difference } from "https://deno.land/std@0.164.0/datetime/mod.ts";
+import { Command } from "https://deno.land/x/cliffy@v0.25.4/command/command.ts";
+import { Select } from "https://deno.land/x/cliffy@v0.25.4/prompt/select.ts";
+import assertIsDefined from "../../lib/assertIsDefined.ts";
+import { Checkbox } from "https://deno.land/x/cliffy@v0.25.4/prompt/checkbox.ts";
+import nkFetch from "../../lib/nkFetch.ts";
 import { Artifact, Branch } from "./types.ts";
-import assertIsDefined from "../lib/assertIsDefined.ts";
-import nkFetch from "../lib/nkFetch.ts";
-import config from "../../config.json" assert { type: "json" };
+import { difference } from "https://deno.land/std@0.164.0/datetime/mod.ts";
+import { Table } from "https://deno.land/x/cliffy@v0.25.4/table/table.ts";
+import { Cell } from "https://deno.land/x/cliffy@v0.25.4/table/cell.ts";
+import config from "../../../config.json" assert { type: "json" };
 
-const gitlab = new Command()
-  .description("Gitlab cli tool.")
+const view = new Command()
   .action(async () => {
     const gitlabConfig = config.gitlab;
     // const today = format(new Date(), 'yyyy-MM-ddTHH:mm:ss.SSS+09:00');
@@ -119,4 +117,7 @@ const gitlab = new Command()
     });
   });
 
-export default gitlab;
+const repo = new Command()
+  .command("view", view)
+
+export default repo;
