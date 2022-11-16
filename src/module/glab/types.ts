@@ -33,3 +33,13 @@ export type Artifact = {
     branches: Branch[];
   }[];
 };
+
+export type Gitlab = {
+  name: string;
+  entry: string;
+  token: string;
+  projects: {
+    id: string;
+    siteName: string;
+  }[];
+};
