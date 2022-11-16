@@ -108,7 +108,6 @@ const gitlab = new Command()
         return {
           branch_name: name,
           committer_name: commit.author_name,
-          committed_date: commit.created_at,
           merged: `${merged}`,
           protected: `${guard}`,
           time_ago: `${timeAgo.value} ${timeAgo.key} ago`,
