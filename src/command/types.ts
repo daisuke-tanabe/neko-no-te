@@ -33,3 +33,8 @@ export type Artifact = {
     branches: Branch[]
   }[]
 }
+
+export type FetchRepositoryBranchesByProject<T> = (
+  { entry, token, projectId }:
+  { entry: string, token: string, projectId: string }
+) => Promise<T>

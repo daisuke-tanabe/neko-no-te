@@ -1,9 +1,19 @@
 import { Command } from 'https://deno.land/x/cliffy@v0.25.4/command/mod.ts';
 import { Select, Checkbox } from 'https://deno.land/x/cliffy@v0.25.4/prompt/mod.ts';
 import { Table, Cell } from "https://deno.land/x/cliffy@v0.25.4/table/mod.ts";
-import { Artifact } from './types.ts';
+import {Artifact, Branch, FetchRepositoryBranchesByProject } from './types.ts';
 import assertIsDefined from '../lib/assertIsDefined.ts'
 import config from '../../config.json' assert { type: 'json' };
+
+const fetchBranches: FetchRepositoryBranchesByProject<Branch[]> = ({ entry, token, projectId }) => {
+  return fetch(
+    `${entry}/projects/${projectId}/repository/branches`,
+    {
+      headers: {'Authorization': `Bearer ${token}`}
+    })
+    .then(response => response.json())
+    .catch(error => console.error(error))
+}
 
 const gitlab = new Command()
   .action(async () => {
@@ -29,13 +39,11 @@ const gitlab = new Command()
     const projectsPromise = checkedProjects.map(async project => {
       return {
         ...project,
-        branches: await fetch(
-          `${foundGitlab.entry}/projects/${project.id}/repository/branches`,
-          {
-            headers: {'Authorization': `Bearer ${foundGitlab.token}`}
-          })
-          .then(response => response.json())
-          .catch(error => console.error(error))
+        branches: await fetchBranches({
+          entry: foundGitlab.entry,
+          token: foundGitlab.token,
+          projectId: project.id,
+        })
       }
     });
 
