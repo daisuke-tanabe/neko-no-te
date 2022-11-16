@@ -25,16 +25,6 @@ type Branch = {
   web_url: string
 }
 
-type GitlabConfig = {
-  name: string,
-  entry: string,
-  token: string,
-  projects: {
-    id: string,
-    siteName: string
-  }[]
-}[]
-
 type Artifact = {
   name: string;
   projects: {

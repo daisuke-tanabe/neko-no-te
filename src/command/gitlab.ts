@@ -2,11 +2,11 @@ import { Command } from 'https://deno.land/x/cliffy@v0.25.4/command/mod.ts';
 import { Select, Checkbox } from 'https://deno.land/x/cliffy@v0.25.4/prompt/mod.ts';
 import { Table, Cell } from "https://deno.land/x/cliffy@v0.25.4/table/mod.ts";
 import assertIsDefined from '../lib/assertIsDefined.ts'
-import Config from '../../config.json' assert {type: 'json'};
+import config from '../../config.json' assert { type: 'json' };
 
 const gitlab = new Command()
   .action(async () => {
-    const gitlabConfig: GitlabConfig = Config.gitlab;
+    const gitlabConfig = config.gitlab;
 
     // https://cliffy.io/docs@v0.25.4/prompt/types/select
     const selectedGitlab = await Select.prompt({
