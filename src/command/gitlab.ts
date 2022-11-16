@@ -1,6 +1,7 @@
 import { Command } from 'https://deno.land/x/cliffy@v0.25.4/command/mod.ts';
 import { Select, Checkbox } from 'https://deno.land/x/cliffy@v0.25.4/prompt/mod.ts';
 import { Table, Cell } from "https://deno.land/x/cliffy@v0.25.4/table/mod.ts";
+import { Artifact } from './types.ts';
 import assertIsDefined from '../lib/assertIsDefined.ts'
 import config from '../../config.json' assert { type: 'json' };
 

@@ -1,4 +1,4 @@
-type Branch = {
+export type Branch = {
   name: string,
   commit: {
     id: string,
@@ -25,7 +25,7 @@ type Branch = {
   web_url: string
 }
 
-type Artifact = {
+export type Artifact = {
   name: string;
   projects: {
     id: string;
