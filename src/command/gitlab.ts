@@ -11,6 +11,7 @@ import nkFetch from "../lib/nkFetch.ts";
 import config from "../../config.json" assert { type: "json" };
 
 const gitlab = new Command()
+  .description("Gitlab cli tool.")
   .action(async () => {
     const gitlabConfig = config.gitlab;
     // const today = format(new Date(), 'yyyy-MM-ddTHH:mm:ss.SSS+09:00');
